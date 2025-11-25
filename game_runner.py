@@ -50,7 +50,7 @@ player.gravity = 1
 # SETUP OBSTACLE
 OBSTARCLE_FILE = "cactus.png"
 obstacle_list = []
-total_spawn_interval = 5
+total_spawn_interval = 20
 current_spawn_interval = 0
 
 # SETUP GAME SETTINGS
@@ -68,6 +68,9 @@ def draw():
 
         for obstacle in obstacle_list:
           obstacle.draw()
+
+        screen.draw.text(f"Score {score}", centerx=WIDTH/2, centery=HEIGHT/2, fontsize= 50)
+
 
     # else, the game is not running, draw 'Game Over' 
     else:
@@ -112,6 +115,8 @@ def obstacle_spawn():
         current_spawn_interval = 0
 
 def obstacle_movement():
+    global game_running
+    
     # move each obstacle to the left
     for obstacle in obstacle_list:
         obstacle.x -= 10
@@ -125,7 +130,9 @@ def obstacle_movement():
         game_running = True 
 
 def update():
-    global game_running
+    global game_running, score
+
+    score += 1
 
     if game_running == True:
         key_presses()
